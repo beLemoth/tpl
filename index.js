@@ -1,5 +1,10 @@
-let consoleRec = require('./consoleRec.js');
 
-let arr = ['я', 'умею', 'писать', 'рекурсивные', 'функции'];
+    let consoleRec = require('./consolerec.js');
 
-consoleRec(arr);
+    let arr = ['я', 'умею', 'писать', 'рекурсивные', 'функции'];
+
+    consoleRec(arr);
+
+
+
+
