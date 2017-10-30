@@ -106,5 +106,26 @@ let scanDOM = () => {
 scanDOM();
 */
 
+let accordeon = document.querySelector('#accordeon');
+
+let toogleList = (e) => {
+    if(e.target.className === 'title__text' || e.target.className === 'title__icon') {
+
+        let list = e.target.parentNode.parentNode;
+
+        list.classList.toggle('active');
+    }
+
+    if(e.target.className === 'title') {
+
+        let list = e.target.parentNode;
+
+        list.classList.toggle('active');
+    }
+
+};
+
+accordeon.addEventListener('click',toogleList);
+
 
 
