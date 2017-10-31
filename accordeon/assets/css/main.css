@@ -1,15 +1,10 @@
 #accordeon {
     width: 460px;
     height: 800px;
-
-
     margin: auto;
-
     font-family: 'Fira Sans', sans-serif;
     font-weight: 300;
-
     color: #4f4f4f;
-
     box-sizing: border-box;
 }
 
@@ -32,7 +27,6 @@ ul,li {
     margin: 0;
 }
 
-
 .list {
     width: 100%;
     background-color: #e7e7e7;
@@ -46,7 +40,6 @@ ul,li {
     display: none;
 }
 
-
 .title {
     position: relative;
     width: 100%;
@@ -59,6 +52,16 @@ ul,li {
     padding: 0 20px;
 
     cursor: pointer;
+}
+
+.title:after {
+    content: "\25BC";
+    position: absolute;
+    display: block;
+    right: 20px;
+    top: 0;
+    width: 10px;
+    height: 10px;
 }
 
 .list:nth-child(even) .title{
@@ -79,9 +82,8 @@ ul,li {
     color: #ffffff;
 }
 
-.list.active .title .title__icon {
-    transform: rotateZ(180deg);
-    fill: #ffffff;
+.list.active .title:after {
+    content: '\25B2';
 }
 
 .list.active .list__item {
