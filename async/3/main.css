@@ -1,0 +1,27 @@
+.result {
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.search {
+    width: 600px;
+    height: 30px;
+
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.variants {
+    width: 600px;
+    margin: auto;
+    text-align: left;
+
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -320px;
+
+    padding: 0 20px;
+
+}
