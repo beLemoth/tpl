@@ -3,8 +3,7 @@
 let url = 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json';
 
 let input = document.querySelector('.search'),
-    result = document.querySelector('.result'),
-    variants = document.querySelector('.variants');
+    result = document.querySelector('.result');
 
 let loading = (url) => {
     return new Promise((resolve, reject) => {
@@ -41,29 +40,27 @@ let compare = (array) => {
     let text = input.value;
 
     if (text) {
-        let variants = document.createElement('div');
+        let variants = document.createElement('ul');
 
         variants.className = 'variants';
 
         result.appendChild(variants);
 
         array.map((value)=>{
-
-            if(!value.search(text)) addElement(value);
+            if(!value.search(text)) addElement(value, variants);
         });
     }
 
 };
 
-let addElement = (text) => {
+let addElement = (text,targetElement) => {
 
-    let element = document.createElement('div'),
-        variants = result.querySelector('.variants');
+    let element = document.createElement('li');
 
     element.className = 'item';
     element.innerText = text;
 
-    variants.appendChild(element);
+    targetElement.appendChild(element);
 
 };
 
