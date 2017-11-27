@@ -1,21 +1,13 @@
 'use strict';
 
-let table = document.querySelector('#result'),
-    addButton = document.querySelector('#add');
+let table = document.querySelector('#result');
 
-let addCookies = () => {
+let date = new Date();
+date.setTime(date.getTime()+123456789);
+document.cookie = 'cook3=cookie3;expires='+date.toUTCString();
 
-    let date = new Date();
-    date.setTime(date.getTime()+102000);
+let addElement = (cookieItem) => {
 
-    document.cookie = 'name=nameValue; expires='+ date.toGMTString();
-    document.cookie = 'prop=propValue; expires='+ date.toGMTString();
-    document.cookie = 'user=userValue; expires='+ date.toGMTString();
-
-    console.log('test');
-};
-
-let addElement = cookieItem => {
     let item = cookieItem.split('=');
 
     let row = document.createElement('tr'),
@@ -29,39 +21,61 @@ let addElement = cookieItem => {
     button.innerText = 'Удалить';
     colButton.appendChild(button);
 
-    table.appendChild(row);
+    table.querySelector('tbody').appendChild(row);
     row.appendChild(colName);
     row.appendChild(colValue);
     row.appendChild(colButton);
-
 };
 
 let delCookie = cookieName => {
-
     let date = new Date();
     date.setTime(date.getTime()-1);
-    document.cookie = cookieName += '=; expires=' + date.toGMTString();
+    document.cookie = cookieName += '=; expires=' + date.toUTCString();
+
+    clearTable();
+    buildTable();
+};
+
+let clearTable = () => {
+
+    let tbody = table.querySelector('tbody');
+
+    table.removeChild(tbody);
 
 };
 
-let cookiesArray = document.cookie.split('; ');
+let buildTable = () => {
 
-cookiesArray.forEach(addElement);
+    let tbody = table.querySelector('tbody');
+    if (!tbody) {
+        tbody = document.createElement('tbody');
+        table.appendChild(tbody);
+    }
 
-addButton.addEventListener('click', e => {
-    addCookies();
-});
+    if(document.cookie) {
+        let cookiesArray = document.cookie.split('; ');
+        cookiesArray.forEach(addElement);
+    } else {
+        let text = document.createElement('span');
+        text.innerText = 'пустой cookie';
+
+        tbody.appendChild(text);
+    }
+};
+
+buildTable();
 
 table.addEventListener('click',(e) => {
 
-    let name = e.target.parentNode.parentNode.firstChild;
+    if(e.target.tagName==='BUTTON') {
+        let name = e.target.parentNode.parentNode.firstChild.innerText;
+        let answer = confirm(`Удалить cookie с именем ${name} ?`);
 
-    let answer = confirm(`Удалить cookie с именем ${name.innerText} ?`);
-
-    if(answer) {
-        delCookie(name);
-        console.log(document.cookie);
+        if(answer) {
+            delCookie(name);
+        }
     }
+
 });
 
 
