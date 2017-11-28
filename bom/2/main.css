@@ -1,0 +1,32 @@
+body {
+    box-sizing: border-box;
+}
+
+body * {
+    box-sizing: inherit;
+}
+
+.cookies {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+#result {
+    width: 100%;
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+th {
+    width: 30%;
+}
+
+.add-cookie {
+    width: 100%;
+}
+
+.add-cookie input {
+    width: 24.5%;
+}
