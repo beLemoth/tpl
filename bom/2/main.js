@@ -1,10 +1,7 @@
 'use strict';
 
-let table = document.querySelector('#result');
-
-let date = new Date();
-date.setTime(date.getTime()+123456789);
-document.cookie = 'cook3=cookie3;expires='+date.toUTCString();
+let table = document.querySelector('#result'),
+    addButton = document.getElementById('add-cookie-button');
 
 let addElement = (cookieItem) => {
 
@@ -32,25 +29,17 @@ let delCookie = cookieName => {
     date.setTime(date.getTime()-1);
     document.cookie = cookieName += '=; expires=' + date.toUTCString();
 
-    clearTable();
     buildTable();
-};
-
-let clearTable = () => {
-
-    let tbody = table.querySelector('tbody');
-
-    table.removeChild(tbody);
-
 };
 
 let buildTable = () => {
 
-    let tbody = table.querySelector('tbody');
-    if (!tbody) {
-        tbody = document.createElement('tbody');
-        table.appendChild(tbody);
+    if (table.querySelector('tbody')) {
+        table.removeChild(table.querySelector('tbody'));
     }
+
+    let tbody = document.createElement('tbody');
+    table.appendChild(tbody);
 
     if(document.cookie) {
         let cookiesArray = document.cookie.split('; ');
@@ -75,7 +64,20 @@ table.addEventListener('click',(e) => {
             delCookie(name);
         }
     }
+});
 
+addButton.addEventListener('click', e => {
+    let parent = e.target.parentNode;
+    let cookieName = parent.querySelector('.add-cookie__name').value,
+        cookieValue = parent.querySelector('.add-cookie__value').value,
+        cookieExpires = parent.querySelector('.add-cookie__expires').value;
+
+    let date = new Date();
+    date.setTime(date.getTime() + (cookieExpires*24*60*60*1000));
+    cookieExpires = date.toUTCString();
+
+    document.cookie = `${cookieName}=${cookieValue}; expires=${cookieExpires}`;
+    buildTable();
 });
 
 
