@@ -73,10 +73,15 @@ addButton.addEventListener('click', e => {
         cookieExpires = parent.querySelector('.add-cookie__expires').value;
 
     let date = new Date();
-    date.setTime(date.getTime() + (cookieExpires*24*60*60*1000));
+    date.setTime(date.getTime() + (cookieExpires*86400000));
     cookieExpires = date.toUTCString();
 
     document.cookie = `${cookieName}=${cookieValue}; expires=${cookieExpires}`;
+
+    parent.querySelector('.add-cookie__name').value = '';
+    parent.querySelector('.add-cookie__value').value = '';
+    parent.querySelector('.add-cookie__expires').value = '';
+
     buildTable();
 });
 
