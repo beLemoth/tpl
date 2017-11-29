@@ -23,19 +23,25 @@ function randomValue(min,max) {
     return Math.random() * (max - min) + min;
 }
 
-let insertBlock = (e) => {
+let insertBlock = () => {
 
-    let block = document.createElement('div');
+    let block = document.createElement('div'),
+        height = randomValue(0,600),
+        width = randomValue(0,1000);
+
 
     block.style.backgroundColor = '' + randomColor();
-    block.style.width = randomValue(0,1000) + 'px';
-    block.style.height = randomValue(0,600) + 'px';
-    block.style.top = randomValue(0,window.innerHeight - block.style.height) + 'px';
-    block.style.left = randomValue(0,window.innerWidth - block.style.width) + 'px';
+    block.style.width = width + 'px';
+    block.style.height = height + 'px';
+    block.style.top = randomValue(0,window.innerHeight - height) + 'px';
+    block.style.left = randomValue(0,window.innerWidth - width) + 'px';
     block.style.border = 'solid 1px #000000';
     block.classList.add('newBlock');
 
     target.appendChild(block);
+
+    saveDivs();
+
 };
 
 button.addEventListener('click',insertBlock);
@@ -63,6 +69,16 @@ target.addEventListener('mousemove',(e) => {
 
 });
 
+let saveDivs = () => {
+    let divs = document.getElementsByClassName('newBlock');
 
+    [].forEach.call(divs, elem => {
+        let date = new Date();
+        date.setTime(date.getTime()+10000000000);
+
+        document.cookie = `${elem.style.top},${elem.style.left},${elem.style.width},${elem.style.height},${elem.style.backgroundColor}; expires=${date.toUTCString()}`;
+
+    });
+};
 
 
