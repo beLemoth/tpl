@@ -25,13 +25,16 @@ function randomValue(min,max) {
 
 let insertBlock = (e) => {
 
-    let block = document.createElement('div');
+    let block = document.createElement('div'),
+        height = randomValue(0,600),
+        width = randomValue(0,1000);
+
 
     block.style.backgroundColor = '' + randomColor();
-    block.style.width = randomValue(0,1000) + 'px';
-    block.style.height = randomValue(0,600) + 'px';
-    block.style.top = randomValue(0,window.innerHeight - block.style.height) + 'px';
-    block.style.left = randomValue(0,window.innerWidth - block.style.width) + 'px';
+    block.style.width = width + 'px';
+    block.style.height = height + 'px';
+    block.style.top = randomValue(0,window.innerHeight - height) + 'px';
+    block.style.left = randomValue(0,window.innerWidth - width) + 'px';
     block.style.border = 'solid 1px #000000';
     block.classList.add('newBlock');
 
