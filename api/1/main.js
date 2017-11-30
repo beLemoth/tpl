@@ -36,31 +36,27 @@ let sorting = object => {
     return array.sort();
 };
 
-let compare = (array) => {
+let compare = array => {
     let text = input.value;
 
     if (text) {
-        let variants = document.createElement('ul');
+        let result = [];
 
-        variants.className = 'variants';
-
-        result.appendChild(variants);
-
-        array.map((value)=>{
-            if(!value.search(text)) addElement(value, variants);
+        array.map(value => {
+            if(!value.search(text)) result.push(value);
         });
-    }
 
+        return result;
+
+    } else return array;
 };
 
-let addElement = (text,targetElement) => {
+let buildList = array => {
 
-    let element = document.createElement('li');
+    let source = document.getElementById('list-tpl').innerText,
+        template = Handlebars.compile(source);
 
-    element.className = 'item';
-    element.innerText = text;
-
-    targetElement.appendChild(element);
+    result.innerHTML = template({list: array});
 
 };
 
@@ -69,12 +65,11 @@ loading(url).then(
 
         let sortingResponse = sorting(response);
 
+        buildList(sortingResponse);
+
         input.addEventListener('input',() => {
 
-            let variants = result.querySelector('.variants');
-
-            if(variants) result.removeChild(variants);
-            compare(sortingResponse);
+            buildList(compare(sortingResponse));
 
         });
 

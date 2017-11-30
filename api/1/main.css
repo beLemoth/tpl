@@ -9,9 +9,10 @@ body * {
     box-sizing: inherit;
 }
 
-.result {
+.result,
+.search-wrapper {
     width: 700px;
-    margin: auto;
+    padding-left: 20px;
 
     position: relative;
 }
@@ -35,4 +36,8 @@ body * {
     left: 0;
 
     padding: 0 22px;
+}
+
+.item {
+    padding-left: 20px;
 }

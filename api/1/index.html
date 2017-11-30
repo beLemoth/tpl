@@ -12,13 +12,20 @@
 </head>
 <body>
 
-    <div class="result">
+    <div class="search-wrapper">
         <input type="text" class="search">
     </div>
 
-    <script src="./main.js"></script>
-    <script id="entry-template" type="text/x-handlebars-template">
+    <div class="result">
+    </div>
 
+    <script src="./main.js"></script>
+    <script id="list-tpl" type="text/x-handlebars-template">
+        <ul class="variants">
+            {{#each list}}
+                <li class="item">{{this}}</li>
+            {{/each}}
+        </ul>
     </script>
 </body>
 </html>
