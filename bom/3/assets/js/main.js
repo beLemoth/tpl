@@ -58,9 +58,10 @@ let insertBlock = () => {
 let saveDivs = () => {
     let divs = document.getElementsByClassName('newBlock');
 
+    let date = new Date();
+    date.setTime(date.getTime()+10000000000);
+
     [].forEach.call(divs, (elem,idx) => {
-        let date = new Date();
-        date.setTime(date.getTime()+10000000000);
         document.cookie = `block${idx+1}=${elem.style.top}&${elem.style.left}&${elem.style.width}&${elem.style.height}&${elem.style.backgroundColor}; expires=${date.toUTCString()}`;
     });
 };
@@ -78,11 +79,11 @@ let loadBlocks = () => {
 let clearCookies = () => {
     let cookies = document.cookie.split('; ');
 
+    let date = new Date();
+    date.setTime(date.getTime()-1);
+
     cookies.forEach(cookieString => {
         let cookieArray = cookieString.split('=');
-
-        let date = new Date();
-        date.setTime(date.getTime()-1);
 
         document.cookie = `${cookieArray[0]}=0; expires=${date.toUTCString()}`;
     });
