@@ -2,6 +2,14 @@ VK.init({
     apiId: 6280323
 });
 
+let sorting = friendsList => {
+  let sortingList = {};
+
+  for(let friendIdx in friendsList) console.log(friendsList[friendIdx]);
+
+  //return sortingList;
+};
+
 let promise = new Promise((resolve, reject) => {
     VK.Auth.login( response => {
         if (response.session) {
@@ -42,5 +50,12 @@ let promise = new Promise((resolve, reject) => {
         })
     })
 }).then( friendsList => {
+    let source = document.getElementById('source-template').innerText,
+        template = Handlebars.compile(source);
 
+    sorting(friendsList);
+
+    let content= document.querySelector('.content');
+
+    content.innerHTML = template({list: friendsList});
 });
