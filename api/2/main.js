@@ -73,8 +73,6 @@ let promise = new Promise((resolve, reject) => {
     })
 }).then( friendsList => {
 
-    sorting(friendsList);
-
     let content= document.querySelector('.content');
 
     let sortedList = listSort(friendsList);
@@ -86,6 +84,4 @@ let promise = new Promise((resolve, reject) => {
     let result = document.querySelector('.content');
 
     result.innerHTML = template({list: sortedList});
-
-    content.innerHTML = template({list: friendsList});
 });
