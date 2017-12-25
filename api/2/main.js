@@ -4,7 +4,6 @@ VK.init({
     apiId: 6280323
 });
 
-
 // function for array sort custom method
 let compareItems = (firstItem,secItem) => {
     if (firstItem.bdateOffset>secItem.bdateOffset) return 1;
@@ -19,24 +18,24 @@ let listSort = list => {
 
     let currentDate = new Date();
 
-    let currentMonth = currentDate.getMonth()+1,
+    let currentMonth = currentDate.getMonth() + 1,
         currentDay = currentDate.getDate(),
         currentYear = currentDate.getFullYear();
 
-    list.forEach( item => {
+    list.forEach(item => {
         if (item.bdate) {
             let bDateArray = item.bdate.split('.');
 
             let bDay = bDateArray[0],
                 bMonth = bDateArray[1];
 
-            item.bdateOffset = Math.abs(currentDay-bDay) + Math.abs(currentMonth-bMonth)*30;
+            item.bdateOffset = Math.abs(currentDay - bDay) + Math.abs(currentMonth - bMonth) * 30;
 
-            if(bDateArray[2]) {
+            if (bDateArray[2]) {
                 let age = currentYear - bDateArray[2];
 
-                if(currentMonth<bMonth) --age;
-                if((currentMonth===bMonth)&&(currentDay<bDay)) --age;
+                if (currentMonth < bMonth) --age;
+                if ((currentMonth === bMonth) && (currentDay < bDay)) --age;
 
                 item.age = age;
             }
@@ -74,6 +73,10 @@ let promise = new Promise((resolve, reject) => {
     })
 }).then( friendsList => {
 
+    sorting(friendsList);
+
+    let content= document.querySelector('.content');
+
     let sortedList = listSort(friendsList);
 
     // handlebars init
@@ -84,4 +87,5 @@ let promise = new Promise((resolve, reject) => {
 
     result.innerHTML = template({list: sortedList});
 
+    content.innerHTML = template({list: friendsList});
 });

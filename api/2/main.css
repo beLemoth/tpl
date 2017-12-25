@@ -1,0 +1,14 @@
+.friend:before,
+.friend:after {
+    content: "";
+    display: table;
+}
+
+.friend:after {
+    clear: both;
+}
+
+.friend__photo {
+    float: left;
+}
+
