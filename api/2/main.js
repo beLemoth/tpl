@@ -26,16 +26,24 @@ let listSort = list => {
         if (item.bdate) {
             let bDateArray = item.bdate.split('.');
 
-            let bDay = bDateArray[0],
-                bMonth = bDateArray[1];
+            let bDay = parseInt(bDateArray[0]),
+                bMonth = parseInt(bDateArray[1]);
 
-            item.bdateOffset = Math.abs(currentDay - bDay) + Math.abs(currentMonth - bMonth) * 30;
+            let monthOffset =  bMonth - currentMonth;
+            let dayOffset = bDay - currentDay;
+
+            if (monthOffset<0) monthOffset += 12;
+            if (monthOffset===0 && dayOffset<0) monthOffset = 12;
+
+            item.bdateOffset = dayOffset + monthOffset * 30;
 
             if (bDateArray[2]) {
-                let age = currentYear - bDateArray[2];
+                let age = currentYear - parseInt(bDateArray[2]);
 
                 if (currentMonth < bMonth) --age;
-                if ((currentMonth === bMonth) && (currentDay < bDay)) --age;
+                if (currentMonth === bMonth){
+                    if (currentDay < bDay || currentDay === bDay) --age;
+                }
 
                 item.age = age;
             }
@@ -72,8 +80,6 @@ let promise = new Promise((resolve, reject) => {
         })
     })
 }).then( friendsList => {
-
-    let content= document.querySelector('.content');
 
     let sortedList = listSort(friendsList);
 
