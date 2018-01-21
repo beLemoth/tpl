@@ -1,4 +1,4 @@
-let calculator = firstNumber => {
+let Calculator = firstNumber => {
     return {
         'sum': function() {
             let result = firstNumber;
