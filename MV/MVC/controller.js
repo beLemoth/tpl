@@ -13,5 +13,15 @@ var Controller = {
         return Model.getNews().then(function(news) {
             results.innerHTML = View.render('news', {list: news.items});
         });
+    },
+    groupsRoute: function() {
+        return Model.getGroups().then(function(groups) {
+            results.innerHTML = View.render('groups', {list: groups});
+        });
+    },
+    photosRoute: function() {
+        return Model.getPhotos().then(function(photos) {
+            results.innerHTML = View.render('photos', {list: photos});
+        });
     }
 };
