@@ -41,9 +41,9 @@ var Model = {
         return this.callApi('groups.get', {extended: 1});
     },
     getPhotos: function() {
-        return this.callApi('photos.get', {extended: 1, album_id: 'profile'});
+        return this.callApi('photos.get', {extended: 1, album_id: 'profile', v: 5.71});
     },
     getComments: function(photoId) {
-        return this.callApi('photos.getComments', {photo_id: photoId});
+        return this.callApi('photos.getComments', {photo_id: photoId, extended: 1, v: 5.71});
     }
 };

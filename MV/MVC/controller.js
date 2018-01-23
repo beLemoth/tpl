@@ -21,7 +21,18 @@ var Controller = {
     },
     photosRoute: function() {
         return Model.getPhotos().then(function(photos) {
-            results.innerHTML = View.render('photos', {list: photos});
+            results.innerHTML = '';
+            photos.items.forEach(function(photo){
+                return Model.getComments(photo.id).then(function(comments){
+                    results.innerHTML += View.render('photos', {photo: photo});
+                    comments.items.forEach( function (comment, idx) {
+                        let commentsBlock = document.getElementById(photo.id+'');
+                        let name = `${comments.profiles[idx].first_name} ${comments.profiles[idx].last_name}` ;
+                        commentsBlock.innerHTML += View.render('comments', {text: comment.text, name: name});
+                    });
+                })
+            });
+
         });
     }
 };

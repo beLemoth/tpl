@@ -94,25 +94,22 @@
 
 <script type="text/x-handlebars-template" id="photosTemplate">
     <div class="photos">
-        {{#each list}}
         <div class="photo">
-            <img src="{{src}}" alt="{{text}}" class="img-thumbnail">
-            <div class="photo__info">likes: {{likes.count}} | reposts: {{reposts.count}} | comments:{{comments.count}}</div>
+            <img src="{{photo.photo_130}}" alt="{{text}}" class="img-thumbnail">
+            <div class="photo__info">likes: {{photo.likes.count}} | reposts: {{photo.reposts.count}} | comments:{{photo.comments.count}}</div>
+            <div class="comments" id="{{photo.id}}">
+            </div>
         </div>
-        {{/each}}
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="commentsTemplate">
-    <div class="comments">
-        {{#each list}}
-        <div class="comments">
-            <div class="comment__text"></div>
-            <div class="comment__author"></div>
-        </div>
-        {{/each}}
+    <div class="comment">
+        <div class="comment__text">{{text}}</div>
+        <div class="comment__author">{{name}}</div>
     </div>
 </script>
+
 
 
 </body>
