@@ -47,7 +47,6 @@ Calculator.prototype.mul = function() {
     return result;
 };
 
-
 //let myCalculator = new Calculator(100);
 
 function SqrCalc(firstNumber) {
