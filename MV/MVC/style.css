@@ -1,0 +1,19 @@
+.friend {
+    float: left;
+    margin: 15px;
+}
+
+.group__image,
+.comment__img {
+    float: left;
+    margin-right: 20px;
+}
+
+.group__name {
+    line-height: 100px;
+}
+
+.comment {
+    margin: 15px 0;
+    margin-left: 20px;
+}
