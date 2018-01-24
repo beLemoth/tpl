@@ -12,6 +12,10 @@ Handlebars.registerHelper('formatDate', function(ts) {
     return new Date(ts * 1000).toLocaleString();
 });
 
+function stringDate(integerDate) {
+    return new Date(integerDate*1000).toLocaleDateString('ru');
+}
+
 new Promise(function(resolve) {
     window.onload = resolve;
 }).then(function() {

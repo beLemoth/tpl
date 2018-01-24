@@ -28,9 +28,6 @@ var Model = {
     getUser: function() {
         return this.callApi('users.get', {});
     },
-    getMusic: function() {
-        return this.callApi('audio.get', {});
-    },
     getFriends: function() {
         return this.callApi('friends.get', {fields: 'photo_100'});
     },
