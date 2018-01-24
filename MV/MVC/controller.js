@@ -16,22 +16,26 @@ var Controller = {
     },
     groupsRoute: function() {
         return Model.getGroups().then(function(groups) {
-            results.innerHTML = View.render('groups', {list: groups});
+            results.innerHTML = View.render('groups', {list: groups.items});
         });
     },
     photosRoute: function() {
         return Model.getPhotos().then(function(photos) {
+
             results.innerHTML = '';
+
             photos.items.forEach(function(photo){
                 return Model.getComments(photo.id).then(function(comments){
                     results.innerHTML += View.render('photos', {photo: photo});
+
+                    let commentsBlock = document.getElementById(photo.id+'');
+
                     comments.items.forEach( function (comment, idx) {
-                        let commentsBlock = document.getElementById(photo.id+'');
-                        let name = `${comments.profiles[idx].first_name} ${comments.profiles[idx].last_name}` ;
-                        commentsBlock.innerHTML += View.render('comments', {text: comment.text, name: name});
+                        commentsBlock.innerHTML += View.render('comments', {comment: comment , author: comments.profiles[idx]});
                     });
-                })
-            });
+
+                });
+            })
 
         });
     }

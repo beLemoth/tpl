@@ -38,7 +38,7 @@ var Model = {
         return this.callApi('newsfeed.get', {filters: 'post', count: 20});
     },
     getGroups: function() {
-        return this.callApi('groups.get', {extended: 1});
+        return this.callApi('groups.get', {extended: 1, v: 5.71});
     },
     getPhotos: function() {
         return this.callApi('photos.get', {extended: 1, album_id: 'profile', v: 5.71});
