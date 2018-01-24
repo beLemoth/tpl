@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
     <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script src="https://use.fontawesome.com/c588141375.js"></script>
 </head>
 <body>
 <div class="container">
@@ -92,19 +93,23 @@
         <div class="photo clearfix">
             <div class="photo__img ">
                 <img src="{{photo.photo_130}}" alt="{{text}}" class="img-thumbnail">
-                <div class="photo__info">likes: {{photo.likes.count}} | reposts: {{photo.reposts.count}} | comments:{{photo.comments.count}}</div>
+                <div class="photo__info">
+                    <i class="fa fa-heart" aria-hidden="true"></i> {{photo.likes.count}}
+                    <i class="fa fa-reply" aria-hidden="true"></i> {{photo.reposts.count}}
+                    <i class="fa fa-comments" aria-hidden="true"></i> {{photo.comments.count}}
+                </div>
             </div>
-            <div class="comments" id="{{photo.id}}">
+            <div class="comments" id="{{photo.id}}"></div>
         </div>
         <hr>
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="commentsTemplate">
-    <div class="comment clearfix">
+    <div class="comment clearfix rounded">
         <div class="comment__img">
             <img src="{{author.photo_50}}" alt="{{author.screen_name}}" class="rounded"></div>
-        <div class="comment__author">{{author.first_name}} {{author.last_name}}</div>
+        <div class="comment__author">{{author.first_name}} {{author.last_name}} <small class="text-muted">{{comment.date}}</small></div>
         <div class="comment__text">{{comment.text}}</div>
     </div>
 </script>

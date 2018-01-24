@@ -30,9 +30,20 @@ var Controller = {
 
                     let commentsBlock = document.getElementById(photo.id+'');
 
-                    comments.items.forEach( function (comment, idx) {
-                        commentsBlock.innerHTML += View.render('comments', {comment: comment , author: comments.profiles[idx]});
-                    });
+                    if(comments.count) {
+
+                        comments.items.forEach( function (comment, idx) {
+
+                            let d = new Date(comment.date*1000);
+                            comment.date = d.toLocaleDateString('ru');
+
+                            commentsBlock.innerHTML += View.render('comments', {comment: comment , author: comments.profiles[idx]});
+                        });
+                    } else {
+                        View.addBlock(commentsBlock, 'К этому фото нет комметариев', 'no-comment');
+                    }
+
+
 
                 });
             })

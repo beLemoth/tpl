@@ -17,3 +17,20 @@
     margin: 15px 0;
     margin-left: 20px;
 }
+
+.comment:nth-child(odd) {
+    background-color: #daecef;
+}
+
+.comment__author {
+    font-weight: bold;
+}
+
+.comment__text {
+    font-size: 14px;
+}
+
+.photo__info {
+    font-size: 12px;
+    margin: 10px;
+}

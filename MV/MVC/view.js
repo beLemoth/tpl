@@ -7,5 +7,13 @@ var View = {
             renderFn = Handlebars.compile(templateSource);
 
         return renderFn(model);
+    },
+    addBlock: function(parent, content, blockClass) {
+        let block = document.createElement('div');
+
+        if(blockClass) block.className = blockClass;
+        block.innerHTML = content || 'Something wrong';
+
+        return parent.appendChild(block);
     }
 };
