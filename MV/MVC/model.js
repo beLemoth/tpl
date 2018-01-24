@@ -37,10 +37,14 @@ var Model = {
     getGroups: function() {
         return this.callApi('groups.get', {extended: 1, v: 5.71});
     },
-    getPhotos: function() {
-        return this.callApi('photos.get', {extended: 1, album_id: 'profile', v: 5.71});
+    getPhotos: function(albumId) {
+        console.log(albumId);
+        return this.callApi('photos.get', {extended: 1, album_id: albumId, v: 5.71});
     },
     getComments: function(photoId) {
         return this.callApi('photos.getComments', {photo_id: photoId, extended: 1, v: 5.71});
+    },
+    getAlbums: function() {
+        return this.callApi('photos.getAlbums', {need_covers: 1, v: 5.71});
     }
 };

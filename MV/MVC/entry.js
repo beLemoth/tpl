@@ -16,6 +16,13 @@ function stringDate(integerDate) {
     return new Date(integerDate*1000).toLocaleDateString('ru');
 }
 
+function sorting(arr, param) {
+    return [].sort.call(arr, function(a,b) {
+        console.log(a[param].count, b[param].count);
+        return a[param].count - b[param].count;
+    })
+}
+
 new Promise(function(resolve) {
     window.onload = resolve;
 }).then(function() {

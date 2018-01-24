@@ -4,7 +4,8 @@
 }
 
 .group__image,
-.comment__img {
+.comment__img,
+.album {
     float: left;
     margin-right: 20px;
 }
@@ -33,4 +34,8 @@
 .photo__info {
     font-size: 12px;
     margin: 10px;
+}
+
+.album {
+    cursor: pointer;
 }

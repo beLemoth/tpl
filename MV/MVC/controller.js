@@ -14,21 +14,28 @@ var Controller = {
             results.innerHTML = View.render('groups', {list: groups.items});
         });
     },
-    photosRoute: function() {
-        return Model.getPhotos().then(function(photos) {
+    photosRoute: function(albumId) {
+        return Model.getPhotos(albumId).then(function(photos) {
 
-            results.innerHTML = '';
+            albumDetails.innerHTML = '';
+
+            console.log(photos);
 
             photos.items.forEach(function(photo){
                 return Model.getComments(photo.id).then(function(comments){
-                    results.innerHTML += View.render('photos', {photo: photo});
+                    albumDetails.innerHTML += View.render('photos', {photo: photo});
 
-                    let commentsBlock = document.getElementById(photo.id+'');
+                    let commentsBlock = document.getElementById('photo'+photo.id);
 
                     if(comments.count) {
-                        comments.items.forEach( function (comment, idx) {
-                            commentsBlock.innerHTML += View.render('comments', {comment: comment ,
-                                                                                author: comments.profiles[idx],
+                        comments.items.forEach( function (comment) {
+
+                            let profiles = comments.profiles.filter(function(profile){
+                                return profile.id === comment.from_id;
+                            });
+
+                            commentsBlock.innerHTML += View.render('comments', {comment: comment,
+                                                                                author: profiles[0],
                                                                                 date: stringDate(comment.date)});
                         });
                     } else {
@@ -38,5 +45,10 @@ var Controller = {
             })
 
         });
+    },
+    albumsRoute: function() {
+        return Model.getAlbums().then(function(albums){
+            return results.innerHTML = View.render('albums',{list: albums.items})
+        })
     }
 };

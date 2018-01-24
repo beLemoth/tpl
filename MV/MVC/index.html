@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-info" onclick="Router.handle('friends')">Друзья</button>
         <button type="button" class="btn btn-info" onclick="Router.handle('news')">Новости</button>
         <button type="button" class="btn btn-info" onclick="Router.handle('groups')">Группы</button>
-        <button type="button" class="btn btn-info" onclick="Router.handle('photos')">Фото</button>
+        <button type="button" class="btn btn-info" onclick="Router.handle('albums')">Фото</button>
     </div>
     <hr>
     <div id="results"></div>
@@ -73,7 +73,6 @@
 </script>
 
 <script type="text/x-handlebars-template" id="photosTemplate">
-    <div class="photos">
         <div class="photo clearfix">
             <div class="photo__img ">
                 <img src="{{photo.photo_130}}" alt="{{text}}" class="img-thumbnail">
@@ -83,10 +82,9 @@
                     <i class="fa fa-comments" aria-hidden="true"></i> {{photo.comments.count}}
                 </div>
             </div>
-            <div class="comments" id="{{photo.id}}"></div>
+            <div class="comments" id="photo{{photo.id}}"></div>
         </div>
         <hr>
-    </div>
 </script>
 
 <script type="text/x-handlebars-template" id="commentsTemplate">
@@ -98,7 +96,21 @@
     </div>
 </script>
 
-
+<script type="text/x-handlebars-template" id="albumsTemplate">
+    <h2>Альбомы</h2>
+    <div class="albums clearfix">
+        {{#each list}}
+        <div class="album" onclick="Router.handle('photos',{{id}})">
+            <div class="album__img">
+                <img src="{{thumb_src}}" alt="{{title}}" class="img-thumbnail"></div>
+            <div class="album__title">{{title}}</div>
+            <div class="album__size">{{size}}</div>
+        </div>
+        {{/each}}
+    </div>
+    <hr>
+    <div id="albumDetails"></div>
+</script>
 
 </body>
 </html>
