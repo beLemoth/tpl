@@ -72,6 +72,37 @@
     </div>
 </script>
 
+<script type="text/x-handlebars-template" id="albumsTemplate">
+    <h2>Альбомы</h2>
+    <div class="albums clearfix">
+        {{#each list}}
+        <div class="album" onclick="Router.handle('photos',{{id}})">
+            <div class="album__img">
+                <img src="{{thumb_src}}" alt="{{title}}" class="img-thumbnail"></div>
+            <div class="album__title">{{title}}</div>
+            <div class="album__size">{{size}}</div>
+        </div>
+        {{/each}}
+    </div>
+    <form id="sortForm" onchange="changeSortProp(albumDetails.dataset.albumId)">
+        <label for="sortProp">Сортировать</label>
+        <select class="sort-params" id="sortProp">
+            <option value="comments">по количеству комментариев</option>
+            <option value="reposts">по количеству репостов</option>
+            <option value="likes">по количеству лайков</option>
+            <option value="date" selected>по дате добавления</option>
+        </select>
+        <label for="sortDirect">в порядке</label>
+        <select class="sort-direct" id="sortDirect">
+            <option value="" selected>возрастания</option>
+            <option value="true">убывания</option>
+        </select>
+    </form>
+    <hr>
+    <div id="albumDetails"></div>
+</script>
+
+
 <script type="text/x-handlebars-template" id="photosTemplate">
         <div class="photo clearfix">
             <div class="photo__img ">
@@ -94,22 +125,6 @@
         <div class="comment__author">{{author.first_name}} {{author.last_name}} <small class="text-muted">{{date}}</small></div>
         <div class="comment__text">{{comment.text}}</div>
     </div>
-</script>
-
-<script type="text/x-handlebars-template" id="albumsTemplate">
-    <h2>Альбомы</h2>
-    <div class="albums clearfix">
-        {{#each list}}
-        <div class="album" onclick="Router.handle('photos',{{id}})">
-            <div class="album__img">
-                <img src="{{thumb_src}}" alt="{{title}}" class="img-thumbnail"></div>
-            <div class="album__title">{{title}}</div>
-            <div class="album__size">{{size}}</div>
-        </div>
-        {{/each}}
-    </div>
-    <hr>
-    <div id="albumDetails"></div>
 </script>
 
 </body>

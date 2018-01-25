@@ -1,4 +1,4 @@
-var Model = {
+let Model = {
     login: function(appId, perms) {
         return new Promise(function(resolve, reject) {
             VK.init({
@@ -25,7 +25,8 @@ var Model = {
             });
         });
     },
-    getUser: function() {
+    getUser: function(userId) {
+        if (userId) return this.callApi('users.get', {user_ids: userId, fields: 'photo_50', v: 5.71});
         return this.callApi('users.get', {});
     },
     getFriends: function() {
@@ -38,11 +39,14 @@ var Model = {
         return this.callApi('groups.get', {extended: 1, v: 5.71});
     },
     getPhotos: function(albumId) {
-        console.log(albumId);
         return this.callApi('photos.get', {extended: 1, album_id: albumId, v: 5.71});
     },
     getComments: function(photoId) {
         return this.callApi('photos.getComments', {photo_id: photoId, extended: 1, v: 5.71});
+    },
+    getAllComments: function(albumId) {
+        console.log(albumId);
+        return this.callApi('photos.getAllComments', {album_id: albumId, extended: 1, v: 5.71});
     },
     getAlbums: function() {
         return this.callApi('photos.getAlbums', {need_covers: 1, v: 5.71});

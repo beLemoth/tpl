@@ -1,4 +1,4 @@
-var Controller = {
+let Controller = {
     friendsRoute: function() {
         return Model.getFriends().then(function(friends) {
             results.innerHTML = View.render('friends', {list: friends});
@@ -17,33 +17,38 @@ var Controller = {
     photosRoute: function(albumId) {
         return Model.getPhotos(albumId).then(function(photos) {
 
-            albumDetails.innerHTML = '';
+            View.addAlbum(albumId);
 
-            console.log(photos);
+            sorting(photos.items, sortProp.value, !!sortDirect.value).forEach(function(photo){
+                albumDetails.innerHTML += View.render('photos', {photo: photo});
+            });
 
-            photos.items.forEach(function(photo){
-                return Model.getComments(photo.id).then(function(comments){
-                    albumDetails.innerHTML += View.render('photos', {photo: photo});
+            return Model.getAllComments(albumId);
+        }).then(function(comments){
+            comments.items.forEach(function(comment){
+                let targetBlock = document.getElementById('photo'+comment.pid);
 
-                    let commentsBlock = document.getElementById('photo'+photo.id);
-
-                    if(comments.count) {
-                        comments.items.forEach( function (comment) {
-
-                            let profiles = comments.profiles.filter(function(profile){
-                                return profile.id === comment.from_id;
-                            });
-
-                            commentsBlock.innerHTML += View.render('comments', {comment: comment,
-                                                                                author: profiles[0],
-                                                                                date: stringDate(comment.date)});
-                        });
-                    } else {
-                        View.addBlock(commentsBlock, 'К этому фото нет комметариев', 'no-comment');     // add info block no-comment
-                    }
-                });
+               return Model.getUser(comment.from_id).then(function(user){
+                   targetBlock.innerHTML += View.render('comments', {comment: comment, author: user[0], date: stringDate(comment.date)});
+                })
             })
 
+            /*                    let commentsBlock = document.getElementById('photo'+photo.id);
+
+                                if(comments.count) {
+                                    comments.items.forEach( function (comment) {
+
+                                        let profiles = comments.profiles.filter(function(profile){
+                                            return profile.id === comment.from_id;
+                                        });
+
+                                        commentsBlock.innerHTML += View.render('comments', {comment: comment,
+                                                                                            author: profiles[0],
+                                                                                            date: stringDate(comment.date)});
+                                    });
+                                } else {
+                                    View.addBlock(commentsBlock, 'К этому фото нет комметариев', 'no-comment');     // add info block no-comment
+                                }*/
         });
     },
     albumsRoute: function() {

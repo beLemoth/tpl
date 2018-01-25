@@ -1,5 +1,5 @@
 Handlebars.registerHelper('formatTime', function(time) {
-    var minutes = parseInt(time / 60),
+    let minutes = parseInt(time / 60),
         seconds = time - minutes * 60;
 
     minutes = minutes.toString().length === 1 ? '0' + minutes : minutes;
@@ -16,11 +16,28 @@ function stringDate(integerDate) {
     return new Date(integerDate*1000).toLocaleDateString('ru');
 }
 
-function sorting(arr, param) {
-    return [].sort.call(arr, function(a,b) {
-        console.log(a[param].count, b[param].count);
-        return a[param].count - b[param].count;
+function sorting(arr, prop, direct) {
+
+    prop = prop || 'date';    // default sorting property
+    direct = direct || false;    // default sorting direction
+
+    return arr.sort(function(val1,val2) {
+
+        if(val1[prop].hasOwnProperty('count')) {
+            val1 = val1[prop].count;
+            val2 = val2[prop].count;
+        } else {
+            val1 = val1[prop];
+            val2 = val2[prop];
+        }
+
+        if(direct) return val2 - val1;
+        return val1 - val2;
     })
+}
+
+function changeSortProp(id) {
+    if(id) Router.handle('photos', id);
 }
 
 new Promise(function(resolve) {

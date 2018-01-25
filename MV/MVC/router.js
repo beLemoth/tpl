@@ -1,6 +1,6 @@
-var Router = {
+let Router = {
     handle: function(route, params) {
-        var routeName = route + 'Route';
+        let routeName = route + 'Route';
 
         if (!Controller.hasOwnProperty(routeName)) {
             throw new Error('Маршрут не найден!');
