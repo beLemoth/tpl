@@ -1,3 +1,5 @@
+// All helpful functions are in the entry.js file
+
 let Controller = {
     friendsRoute: function() {
         return Model.getFriends().then(function(friends) {
@@ -14,46 +16,33 @@ let Controller = {
             results.innerHTML = View.render('groups', {list: groups.items});
         });
     },
-    photosRoute: function(albumId) {
-        return Model.getPhotos(albumId).then(function(photos) {
-
-            View.addAlbum(albumId);
-
-            sorting(photos.items, sortProp.value, !!sortDirect.value).forEach(function(photo){
-                albumDetails.innerHTML += View.render('photos', {photo: photo});
-            });
-
-            return Model.getAllComments(albumId);
-        }).then(function(comments){
-            comments.items.forEach(function(comment){
-                let targetBlock = document.getElementById('photo'+comment.pid);
-
-               return Model.getUser(comment.from_id).then(function(user){
-                   targetBlock.innerHTML += View.render('comments', {comment: comment, author: user[0], date: stringDate(comment.date)});
-                })
-            })
-
-            /*                    let commentsBlock = document.getElementById('photo'+photo.id);
-
-                                if(comments.count) {
-                                    comments.items.forEach( function (comment) {
-
-                                        let profiles = comments.profiles.filter(function(profile){
-                                            return profile.id === comment.from_id;
-                                        });
-
-                                        commentsBlock.innerHTML += View.render('comments', {comment: comment,
-                                                                                            author: profiles[0],
-                                                                                            date: stringDate(comment.date)});
-                                    });
-                                } else {
-                                    View.addBlock(commentsBlock, 'К этому фото нет комметариев', 'no-comment');     // add info block no-comment
-                                }*/
-        });
-    },
     albumsRoute: function() {
         return Model.getAlbums().then(function(albums){
-            return results.innerHTML = View.render('albums',{list: albums.items})
+            results.innerHTML = View.render('albums',{list: albums.items})
         })
+    },
+    photosRoute: function(albumId) {
+        return Model.getPhotos(albumId).then(function(photos) {
+            albumDetails.dataset.albumId = albumId;
+            albumDetails.innerHTML = View.render('photos', {list: sorting(photos.items, sortProp.value, !!sortDirect.value)});
+        });
+    },
+    commentsRoute: function(params) {
+        let paramsArray = params.split('|');
+
+        return Model.getComments(parseInt(paramsArray[0])).then(function(comments) {
+            photoDetail.innerHTML = View.render('photo', {photo: paramsArray[1]});
+
+            let commentsBlock = albumDetails.querySelector('.comments');
+
+            if(comments.count) {
+                comments.items.forEach(function (comment) {
+                    commentsBlock.innerHTML += View.render('comments', {comment: comment, author: getAuthor(comments, comment), date: stringDate(comment.date)});
+                });
+            } else {
+                View.addBlock(commentsBlock, 'Нет комментариев', 'no-comment');
+            }
+        });
     }
+
 };

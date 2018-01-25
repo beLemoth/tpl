@@ -5,6 +5,7 @@
 
 .group__image,
 .comment__img,
+.photos-item,
 .album {
     float: left;
     margin-right: 20px;
@@ -31,11 +32,34 @@
     font-size: 14px;
 }
 
-.photo__info {
+.photos-item__info {
     font-size: 12px;
     margin: 10px;
 }
 
-.album {
+.album,
+.photos-item {
     cursor: pointer;
+}
+
+.album {
+    position: relative;
+}
+
+.album__size {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-color: #138496;
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+}
+
+.album__title {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
 }

@@ -80,7 +80,7 @@
             <div class="album__img">
                 <img src="{{thumb_src}}" alt="{{title}}" class="img-thumbnail"></div>
             <div class="album__title">{{title}}</div>
-            <div class="album__size">{{size}}</div>
+            <div class="album__size rounded">{{size}}</div>
         </div>
         {{/each}}
     </div>
@@ -104,18 +104,30 @@
 
 
 <script type="text/x-handlebars-template" id="photosTemplate">
-        <div class="photo clearfix">
-            <div class="photo__img ">
-                <img src="{{photo.photo_130}}" alt="{{text}}" class="img-thumbnail">
-                <div class="photo__info">
-                    <i class="fa fa-heart" aria-hidden="true"></i> {{photo.likes.count}}
-                    <i class="fa fa-reply" aria-hidden="true"></i> {{photo.reposts.count}}
-                    <i class="fa fa-comments" aria-hidden="true"></i> {{photo.comments.count}}
+    <div id="photoDetail"></div>
+    <div class="photos clearfix">
+            {{#each list}}
+            <div class="photos-item" onclick="Router.handle('comments','{{id}}|{{photo_604}}')">
+                <img src="{{photo_130}}" alt="{{text}}" class="img-thumbnail">
+                <div class="photos-item__info">
+                    <i class="fa fa-heart" aria-hidden="true"></i> {{likes.count}}
+                    <i class="fa fa-reply" aria-hidden="true"></i> {{reposts.count}}
+                    <i class="fa fa-comments" aria-hidden="true"></i> {{comments.count}}
                 </div>
             </div>
-            <div class="comments" id="photo{{photo.id}}"></div>
+            {{/each}}
         </div>
-        <hr>
+</script>
+
+<script type="text/x-handlebars-template" id="photoTemplate">
+    <div class="photo clearfix row">
+        <div class="photo__img col-6">
+            <img src="{{photo}}" alt="photo" class="img-thumbnail">
+        </div>
+        <div class="comments col-6">
+        </div>
+    </div>
+    <hr>
 </script>
 
 <script type="text/x-handlebars-template" id="commentsTemplate">
